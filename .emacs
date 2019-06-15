@@ -1,6 +1,10 @@
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 (require 'tls)
 (tool-bar-mode -1)                             ; No toolbar
+(show-paren-mode 1)
 ;;(menu-bar-mode -1)                             ; No menubar
 (define-key menu-bar-tools-menu [games] nil)   ; Remove games menu
 (scroll-bar-mode -1)                           ; No scrollbar
@@ -13,7 +17,7 @@
           (lambda()
             (setq show-trailing-whitespace nil)))
 
-
+(add-to-list 'exec-path "/usr/local/bin")
 (defun reload ()
   (interactive)
   (load "~/.emacs"))
@@ -29,6 +33,13 @@
   (kill-line)
   (yank)
   (move-beginning-of-line 1))
+
+(defun foo ()
+  "Do something"
+  (interactive)
+  (save-excursion
+    (kill-line)
+    (yank)))
 
 (defun er-indent-buffer ()
   "Indent the currently visited buffer."
@@ -49,6 +60,7 @@
 
 (global-set-key [(control tab)] 'delete-backward-char)
 (global-set-key "\C-ck" 'copy-as-kill)
+(global-set-key "\C-cr" 'revert-buffer)
 (global-set-key "\C-ci" 'er-indent-region-or-buffer)
 (global-set-key "\C-cc" 'comment-region)
 (global-set-key "\C-cu" 'uncomment-region)
@@ -116,3 +128,17 @@ C-c C-c to apply."
 
 (provide 'resize-frame)
 ;;; resize-frame.el ends here2
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(package-selected-packages (quote (php-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
