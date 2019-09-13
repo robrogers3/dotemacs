@@ -2,7 +2,10 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+;;(require 'exec-path-from-shell) ;; if not using the ELPA package
+(exec-path-from-shell-initialize)
 (require 'tls)
+(require 'ag)
 (tool-bar-mode -1)                             ; No toolbar
 (show-paren-mode 1)
 ;;(menu-bar-mode -1)                             ; No menubar
@@ -12,7 +15,12 @@
 (setq require-final-newline 't)
 (global-font-lock-mode 1)                      ; Color enabled
 
-
+(setq projectile-enable-caching t)
+(setq projectile-completion-system 'grizzl)
+;; Press Command-p for fuzzy find in project
+(global-set-key (kbd "s-p") 'projectile-find-file)
+;; Press Command-b for fuzzy switch buffer
+(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 (add-hook 'shell-mode-hook
           (lambda()
             (setq show-trailing-whitespace nil)))
@@ -29,10 +37,15 @@
 
 (defun copy-as-kill ()
   (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (move-beginning-of-line 1))
+  (interactive)
+  (save-excursion
+    (kill-line)
+    (yank)))
+
+;; (move-beginning-of-line 1)
+;; (kill-line)
+;; (yank)
+;; (move-beginning-of-line 1))
 
 (defun foo ()
   "Do something"
@@ -71,6 +84,7 @@
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
+(global-set-key "\M-g" 'goto-line)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 
@@ -117,7 +131,7 @@ C-c C-c to apply."
   (if (<= (length (window-list)) 1)
       (progn (setq resize-frame nil)
              (message "Only root frame exists, abort."))
-      (message "Use arrow-keys or i/j/k/l to adjust frames.")))
+    (message "Use arrow-keys or i/j/k/l to adjust frames.")))
 
 (defun resize-frame-done ()
   (interactive)
@@ -135,7 +149,15 @@ C-c C-c to apply."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(package-selected-packages (quote (php-mode))))
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(custom-safe-themes
+   (quote
+    ("b46ee2c193e350d07529fcd50948ca54ad3b38446dcbd9b28d0378792db5c088" default)))
+ '(package-selected-packages
+   (quote
+    (projectile grizzl exec-path-from-shell ag enh-ruby-mode auto-complete package-build shut-up epl git commander f dash s pallet poly-erb yaml-mode dracula-theme vue-mode markdown-mode php-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
