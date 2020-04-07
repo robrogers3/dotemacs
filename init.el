@@ -21,13 +21,15 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+(if (display-graphic-p)
+    (progn
 
-(if window-system
+
     (tool-bar-mode -1)                             ; No toolbar
-  (menu-bar-mode 't)                             ; menubar
-  (define-key menu-bar-tools-menu [games] nil)   ; Remove games menu
-  (scroll-bar-mode -1)         ; No scrollbar
-  )
+    (menu-bar-mode 't)                             ; menubar
+    (define-key menu-bar-tools-menu [games] nil)   ; Remove games menu
+    (scroll-bar-mode -1)         ; No scrollbar
+  ))
 
 (show-paren-mode 1)
 (load-theme 'material t)
