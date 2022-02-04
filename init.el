@@ -110,9 +110,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(menu-bar-mode t)
  '(package-selected-packages
    (quote
-    (flycheck-haskell haskell-mode magit flycheck use-package flymake-php helm-ag helm-projectile projectile helm-swoop helm ag web-mode php-mode ws-butler material-theme markdown-mode exec-path-from-shell)))
+    (erlang go-mode omnisharp csharp-mode flycheck-haskell haskell-mode magit flycheck use-package flymake-php helm-ag helm-projectile projectile helm-swoop helm ag web-mode php-mode ws-butler material-theme markdown-mode exec-path-from-shell)))
  '(ws-butler-global-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -120,3 +121,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun haskell-setup ()
+    (make-local-variable 'tab-stop-list)
+    (setq tab-stop-list (number-sequence 0 120 4))
+    (setq indent-line-function 'tab-to-tab-stop)
+    (setq haskell-indent-spaces 4))
+
+(add-hook 'haskell-mode-hook 'haskell-setup)
