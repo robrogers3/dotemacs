@@ -24,8 +24,10 @@
 (add-hook 'shell-mode-hook
           (lambda()
             (setq show-trailing-whitespace nil)))
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
 
 (add-to-list 'exec-path "/usr/local/bin")
+
 (defun reload ()
   (interactive)
   (load "~/.emacs"))
