@@ -17,10 +17,8 @@
 (require 'ws-butler)
 (require 'flymake-php)
 (add-hook 'php-mode-hook 'flymake-php-load)
-
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+(desktop-save-mode 1)
 (if (display-graphic-p)
     (progn
 
@@ -104,6 +102,8 @@
 (global-set-key (kbd "C-x m") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-c C-e") 'xref-find-definitions-other-window)
+(global-set-key (kbd "M-r") 'replace-string)
+(global-set-key (kbd "M-*") 'pop-tag-mark)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -128,3 +128,13 @@
     (setq haskell-indent-spaces 4))
 
 (add-hook 'haskell-mode-hook 'haskell-setup)
+
+;;  (use-package flycheck)
+;;    :config)
+;;    (add-hook 'after-init-hook 'global-flycheck-mode))
+;;(require 'init-flycheck)
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode))
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
